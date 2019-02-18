@@ -1,0 +1,19 @@
+{
+  "name": "demo",
+  "version": "1.0.0",
+  "main": "main.js",
+  "description": "demo",
+  "scripts": {
+    "start": "cross-env DESKTOP_NODE_ENV=DEV electron .",
+    "prebuild": "rm -rf ./build",
+    "build": "electron-packager . --win --out ./build --arch=ia32 --app-version=0.0.1 --electron-version=3.0.11 --overwrite",
+    "postbuild": "asar pack ./build/demo-win32-ia32/resources/app ./build/demo-win32-ia32/resources/app.asar && npm run clean",
+    "clean": "rm -rf ./build/demo-win32-ia32/resources/app"
+  },
+  "devDependencies": {
+    "cross-env": "^5.2.0",
+    "electron": "^3.0.10",
+    "gulp": "^3.9.1",
+    "gulp-less": "^4.0.1"
+  }
+}

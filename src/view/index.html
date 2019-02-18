@@ -1,0 +1,49 @@
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Demo</title>
+    <script src="../js/vue.min.js"></script>
+    <link rel="stylesheet" href="../css/style.css">
+</head>
+<body>
+    <div id="app"  @contextmenu="showRightClickMenu">
+        Hello，磁石童鞋们
+        <div class="box">
+            <button @click="triggerMenu">控制窗体菜单栏</button>
+        </div>
+        <div class="box">
+            <button @click="triggerIcon">控制小图标</button>
+        </div>
+        <div class="box">
+            <button @click="triggerTaskBar">是否显示任务栏</button>
+        </div>
+        <div class="box">
+            <button @click="triggerFrame">闪烁任务栏</button>
+        </div>
+        <div class="box">
+            <button @click="triggerProgress">任务栏进度</button>
+            <input type="text" v-model="taskbar">
+        </div>
+        <div class="box">
+            <button @click="triggerError">原生windows窗体</button>
+            <input type="text" v-model="error">
+        </div>
+        <div class="box">
+            <button @click="triggerTop">窗口置顶</button>
+        </div>
+        <div class="box">
+            <button @click="triggerLink">打开默认浏览器</button>
+            <input type="text" v-model="link">
+        </div>
+        <div class="box">
+            <button @click="triggerWindow">打开另外一个窗口</button>
+        </div>
+        <div class="box">
+            <textarea id="holder" cols="90" rows="20">试着拖拽一些文件到这</textarea>
+        </div>
+    </div>
+    <script src="../js/index.js"></script>
+</body>
+</html>
