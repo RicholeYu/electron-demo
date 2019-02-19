@@ -53,3 +53,7 @@ body {
   position: relative;
   background: transparent;
 }
+#app .textare-box textarea.empty {
+  border: dashed 2px #555;
+  border-radius: 5px;
+}

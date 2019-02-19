@@ -1,14 +1,19 @@
+
 (() => {
     const fs = require('fs')
-    const { ipcRenderer, dialog, shell } = require('electron')
-    var app = new Vue({
+    const path = require('path')
+    const { ipcRenderer, shell } = require('electron')
+    const spawn = require('child_process').spawn;
+    new Vue({
         el: '#app',
         data () {
             return {
                 taskbar: '',
                 holder: '',
+                tmpfile: '',
                 isOver: false,
                 error: '很帅',
+                application: '',
                 link: 'https://www.coinslot.com'
             }
         },
@@ -57,6 +62,19 @@
                         this.holder = data;
                     }
                 });
+            },
+            triggerFile () {
+                let filepath = path.resolve(process.env.HOMEDRIVE, process.env.HOMEPATH, 'desktop', '临时文件.txt')
+                let ws = fs.createWriteStream(filepath)
+                ws.write(this.tmpfile)
+                ws.end()
+            },
+            triggerOpen () {
+                let app = spawn(this.application, {
+                    detached: true,
+                    stdio: 'ignore'
+                });
+                app.unref()
             }
         },
         computed: {

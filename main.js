@@ -12,6 +12,7 @@ var isShowTop = true
 var timer = null
 var appTray= null
 
+console.log(process.pid)
 
 function createIndexWindow() {
     const BASE_URL = path.resolve(__dirname, 'src/view/index.html')
@@ -27,6 +28,8 @@ function createIndexWindow() {
 
     // 加载index.html
     win.loadFile(BASE_URL)
+
+    win.on('closed', () => process.exit(0))
 }
 
 function createMessageWindow() {
@@ -86,7 +89,7 @@ function createClickMenu () {
 function createWindow () {
 
     createIndexWindow()
-    createMessageWindow()
+    // createMessageWindow()
     // 控制窗体菜单
     ipcMain.on('trigger-menu', () => {
         win.setMenu(isOpenMenu ? null : menuList)
