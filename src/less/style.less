@@ -10,4 +10,50 @@ html, body {
     > .box {
         margin: 20px;
     }
+
+    .textare-box {
+        position: relative;
+        .textare-tip {
+            width: 400px;
+            height: 200px;
+            position: absolute;
+            top: 0;
+            left: 0;
+            background: rgba(0, 0, 0, .1);
+            z-index: 1;
+            &.empty {
+                &::before {
+                    display: block;
+                    content: '请拖拽文件到此处';
+                    color: rgba(255, 255, 255, .9);
+                    position: absolute;
+                    top: 50%;
+                    left: 50%;
+                    transform: translate(-50%, -50%);
+                }
+            }
+            &.drop {
+                background: #FFF;
+            }
+            &.over {
+                background: rgba(0, 0, 0, .3);
+                &::before {
+                    display: block;
+                    content: '请放下您的鼠标';
+                    color: rgba(255, 255, 255, .9);
+                    position: absolute;
+                    top: 50%;
+                    left: 50%;
+                    transform: translate(-50%, -50%);
+                }
+            }
+        }
+        textarea {
+            width: 400px;
+            height: 200px;
+            z-index: 4;
+            position: relative;
+            background: transparent;
+        }
+    }
 }

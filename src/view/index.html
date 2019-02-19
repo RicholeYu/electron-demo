@@ -40,8 +40,9 @@
         <div class="box">
             <button @click="triggerWindow">打开另外一个窗口</button>
         </div>
-        <div class="box">
-            <textarea id="holder" cols="90" rows="20">试着拖拽一些文件到这</textarea>
+        <div class="box textare-box">
+            <div class="textare-tip" :class="{ empty: isEmpty, drop: holder, over: isOver }"></div>
+            <textarea v-model="holderText" @dragover="holderOver" @dragleave="dragleave" @drop="drop"></textarea>
         </div>
     </div>
     <script src="../js/index.js"></script>

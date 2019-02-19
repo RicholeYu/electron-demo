@@ -6,6 +6,8 @@
         data () {
             return {
                 taskbar: '',
+                holder: '',
+                isOver: false,
                 error: '很帅',
                 link: 'https://www.coinslot.com'
             }
@@ -40,57 +42,30 @@
             },
             showRightClickMenu () {
                 ipcRenderer.send('trigger-clickmenu')
+            },
+            holderOver () {
+                this.isOver = true
+            },
+            dragleave () {
+                this.isOver = false
+            },
+            drop () {
+                let efile = event.dataTransfer.files[0];
+                fs.readFile(efile.path, "utf-8", (err, data) => {
+                    if (!err) {
+                        this.isOver = false
+                        this.holder = data;
+                    }
+                });
             }
         },
-        mounted () {
+        computed: {
+            isEmpty () {
+                return !this.holder
+            },
+            holderText () {
+                return this.isOver ? '' : this.holder
+            }
         }
     })
-
-    var holder = document.getElementById('holder')
-
-    holder.addEventListener("dragenter", function (event) {
-        // 重写ondragover 和 ondragenter 使其可放置
-        event.preventDefault();
-        holder.className = 'holder-ondrag';
-        holder.innerText = '请放下您的鼠标';
-    });
-    
-    holder.addEventListener("dragover", function (event) {
-        // 重写ondragover 和 ondragenter 使其可放置
-        event.preventDefault();
-        holder.className = 'holder-ondrag';
-        holder.innerText = '请放下您的鼠标';
-    });
-    
-    holder.addEventListener("dragleave", function (event) {
-        event.preventDefault();
-    
-        holder.className = ''
-        holder.innerText = '试着拖拽一些文件到这';
-    });
-    
-    holder.addEventListener("drop", function (event) {
-        // 调用 preventDefault() 来避免浏览器对数据的默认处理（drop 事件的默认行为是以链接形式打开） 
-        event.preventDefault();
-    
-        // 原生语句如下，但引进jquery后要更改
-        // var file=event.dataTransfer.files[0];
-        // 原因：
-        // 在jquery中，最终传入事件处理程序的 event 其实已经被 jQuery 做过标准化处理，
-        // 其原有的事件对象则被保存于 event 对象的 originalEvent 属性之中，
-        // 每个 event 都是 jQuery.Event 的实例
-        // 应该这样写:
-        var efile = event.dataTransfer.files[0];
-    
-        holder.className = "holder-ondrag";
-    
-        fs.readFile(efile.path, "utf8", function(err, data){
-            if (err) {
-                throw err;
-                return
-            }
-            holder.innerText = data;
-        });
-        return false;
-    });
 })()

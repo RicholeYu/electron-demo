@@ -10,3 +10,46 @@ body {
 #app > .box {
   margin: 20px;
 }
+#app .textare-box {
+  position: relative;
+}
+#app .textare-box .textare-tip {
+  width: 400px;
+  height: 200px;
+  position: absolute;
+  top: 0;
+  left: 0;
+  background: rgba(0, 0, 0, 0.1);
+  z-index: 1;
+}
+#app .textare-box .textare-tip.empty::before {
+  display: block;
+  content: '请拖拽文件到此处';
+  color: rgba(255, 255, 255, 0.9);
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+}
+#app .textare-box .textare-tip.drop {
+  background: #FFF;
+}
+#app .textare-box .textare-tip.over {
+  background: rgba(0, 0, 0, 0.3);
+}
+#app .textare-box .textare-tip.over::before {
+  display: block;
+  content: '请放下您的鼠标';
+  color: rgba(255, 255, 255, 0.9);
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+}
+#app .textare-box textarea {
+  width: 400px;
+  height: 200px;
+  z-index: 4;
+  position: relative;
+  background: transparent;
+}
