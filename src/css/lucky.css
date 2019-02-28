@@ -1,0 +1,43 @@
+html,
+body {
+  font-family: "Microsoft Yahei", 'Courier New';
+  background: #EFEFEF;
+}
+* {
+  padding: 0;
+  margin: 0;
+  list-style: none;
+}
+#app {
+  padding: 30px;
+  text-align: center;
+}
+#app h3 {
+  margin: 20px auto;
+  height: 30px;
+  text-align: center;
+  font-weight: bold;
+}
+#app button {
+  width: 200px;
+  height: 30px;
+  cursor: pointer;
+  font-weight: bold;
+  color: #222;
+}
+#app button.disable {
+  background: gray;
+  color: #FFF;
+}
+#app .img-box {
+  display: flex;
+  justify-content: center;
+}
+#app .img-box img {
+  width: 150px;
+  padding: 5px;
+  box-sizing: border-box;
+  border: solid 3px #555;
+  border-radius: 50%;
+  height: 150px;
+}

@@ -7,13 +7,18 @@
     "start": "cross-env DESKTOP_NODE_ENV=DEV electron .",
     "prebuild": "rm -rf ./build",
     "build": "electron-packager . --win --out ./build --arch=ia32 --app-version=0.0.1 --electron-version=3.0.11 --overwrite",
-    "postbuild": "asar pack ./build/demo-win32-ia32/resources/app ./build/demo-win32-ia32/resources/app.asar && npm run clean",
+    "postbuild": "asar pack ./build/demo-win32-ia32/resources/app ./build/demo-win32-ia32/resources/app.asar",
     "clean": "rm -rf ./build/demo-win32-ia32/resources/app"
   },
   "devDependencies": {
     "cross-env": "^5.2.0",
     "electron": "^3.0.10",
     "gulp": "^3.9.1",
-    "gulp-less": "^4.0.1"
+    "gulp-less": "^4.0.1",
+    "puppeteer": "^1.12.2"
+  },
+  "dependencies": {
+    "regedit": "^3.0.2",
+    "request": "^2.88.0"
   }
 }

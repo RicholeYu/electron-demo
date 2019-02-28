@@ -9,12 +9,15 @@
 </head>
 <body>
     <div id="app"  @contextmenu="showRightClickMenu">
-        Hello，磁石童鞋们
+        <p>磁石童鞋们, 大家下午好啊!!!</p>
         <div class="box">
-            <button @click="triggerMenu">控制窗体菜单栏</button>
+            <button @click="triggerMenu">老板点菜</button>
         </div>
         <div class="box">
             <button @click="triggerIcon">控制小图标</button>
+        </div>
+        <div class="box">
+            <button @click="triggerHide">忍法·隐身术</button>
         </div>
         <div class="box">
             <button @click="triggerTaskBar">是否显示任务栏</button>
@@ -45,12 +48,31 @@
             <textarea :class="{ empty: isEmpty || isOver }" v-model="holderText" @dragover="holderOver" @dragleave="dragleave" @drop="drop"></textarea>
         </div>
         <div class="box">
-            <button @click="triggerFile">创建一个本地临时文件</button>
+            <button @click="triggerFile">创建文件</button>
             <input type="text" v-model="tmpfile">
+        </div>
+        <div class="box">
+            <button @click="triggerDownload">下载文件</button>
+            <input type="text" v-model="downloadPath">
         </div>
         <div class="box">
             <button @click="triggerOpen">打开其他应用</button>
             <input type="text" v-model="application">
+        </div>
+        <div class="box">
+            <button @click="triggerFull">是否全屏</button>
+        </div>
+        <div class="box">
+            <button @click="triggerScroll">更改滚动条样式</button>
+        </div>
+        <div class="box">
+            <button @click="triggerDevTool">打开页面控制台</button>
+        </div>
+        <div class="box">
+            <button @click="triggerReg">注入开机自动执行注册表</button>
+        </div>
+        <div class="box">
+            <button @click="triggerLucky">抽奖</button>
         </div>
     </div>
     <script src="../js/index.js"></script>

@@ -1,4 +1,5 @@
 const { app, BrowserWindow, Menu, ipcMain, Tray, dialog, MenuItem, shell } = require('electron')
+const request = require('request')
 const menu = require('./main/menu')
 const path = require('path')
 var menuList = menu.menu
@@ -19,7 +20,7 @@ function createIndexWindow() {
 
     // 初始化窗体
     win = new BrowserWindow({
-        width: 1400,
+        width: 600,
         height: 600
     })
     win.setMenu(null)
@@ -29,7 +30,12 @@ function createIndexWindow() {
     // 加载index.html
     win.loadFile(BASE_URL)
 
-    win.on('closed', () => process.exit(0))
+    win.on('closed', () => {
+        process.exit(0)
+        if (appTray) {
+            appTray.destroy()
+        }
+    })
 }
 
 function createMessageWindow() {
@@ -45,6 +51,8 @@ function createMessageWindow() {
 
     // 加载index.html
     messageWin.loadFile(BASE_URL)
+
+    messageWin.show()
 }
 
 function createTray () {
@@ -58,7 +66,7 @@ function createTray () {
             isMessage = false
             clearInterval(timer)
             timer = null
-            messageWin.show()
+            createMessageWindow()
             appTray.setImage(path.resolve(__dirname, 'coinslot.ico'))
             appTray.setToolTip('demo')
         }
@@ -72,7 +80,6 @@ function createTray () {
             isWanzong = !isWanzong
         }, 800)
     }))
-
 }
 
 function createClickMenu () {
@@ -89,7 +96,7 @@ function createClickMenu () {
 function createWindow () {
 
     createIndexWindow()
-    // createMessageWindow()
+
     // 控制窗体菜单
     ipcMain.on('trigger-menu', () => {
         win.setMenu(isOpenMenu ? null : menuList)
@@ -150,12 +157,52 @@ function createWindow () {
     ipcMain.on('trigger-clickmenu', () => {
         createClickMenu()
     })
-}
 
+    ipcMain.on('trigger-dev-tool', () => {
+        win.openDevTools()
+    })
+
+    ipcMain.on('trigger-hide', () => {
+        let isD = false
+        win.hide()
+        if (appTray) {
+            isD = true
+            appTray.destroy()
+        }
+        setTimeout(() => {
+            win.show()
+            if (isD) {
+                createTray()
+            }
+        }, 10000)
+    })
+
+    ipcMain.on('trigger-lucky', () => {
+        const BASE_URL = path.resolve(__dirname, 'src/view/lucky.html')
+
+        // 初始化窗体
+        let win = new BrowserWindow({
+            width: 400,
+            height: 400
+        })
+        win.setMenu(null)
+
+        // 加载index.html
+        win.loadFile(BASE_URL)
+
+        win.openDevTools()
+    })
+}
 
 app.on('ready', () => {
     createWindow()
+    try {
+        BrowserWindow.addDevToolsExtension(
+            path.resolve('C:\\Users\\Administrator\\AppData\\Local\\Google\\Chrome\\User Data\\Default\\Extensions\\nhdogjmejiglipccpnnnanhbledajbpd\\4.1.5_0')
+        )
+    } catch (e) {
+        console.log(e)
+    }
 })
-
 
 // dialog.showErrorBox('result', `${request.url.indexOf('index.html') > -1 ? '1' : '0'} | ${request.url}`)
